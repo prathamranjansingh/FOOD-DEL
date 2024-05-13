@@ -7,7 +7,7 @@
   display: grid;
 }
 
-.login-popup-conatiner {
+.login-popup-container {
   place-self: center;
   width: max(23vw, 330px);
   color: #808080;
@@ -46,7 +46,7 @@
   border-radius: 4px;
 }
 
-.login-popup-conatiner button {
+.login-popup-container button {
   border: none;
   padding: 10px;
   border-radius: 4px;
