@@ -2,13 +2,24 @@ import React, { useEffect, useState } from "react";
 import "./List.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-const List = () => {
-  const url = "http://localhost:4000";
+const List = ({ url }) => {
   const [list, setList] = useState([]);
   const fetchList = async () => {
     const response = await axios.get(`${url}/api/food/list`);
+    console.log(response.data);
     if (response.data.success) {
       setList(response.data.data);
+    } else {
+      toast.error("Error");
+    }
+  };
+
+  const removeFood = async (foodId) => {
+    console.log(foodId);
+    const response = await axios.post(`${url}/api/food/remove`, { id: foodId }); //because we have written the remove func in the backend using post method
+    await fetchList(); //reload karenge updated value ke liye
+    if (response.data.success) {
+      toast.success(response.data.message);
     } else {
       toast.error("Error");
     }
@@ -35,7 +46,9 @@ const List = () => {
               <p>{item.name}</p>
               <p>{item.category}</p>
               <p>${item.price}</p>
-              <p>x</p>
+              <p onClick={() => removeFood(item._id)} className="cursor">
+                x
+              </p>
             </div>
           );
         })}
