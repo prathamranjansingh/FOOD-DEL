@@ -2,7 +2,6 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const StoreContext = createContext(null);
-
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const url = "http://localhost:4000";
@@ -23,11 +22,11 @@ const StoreContextProvider = (props) => {
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
-    for (const itemId in cartItems) {
-      if (cartItems[itemId] > 0) {
-        let itemInfo = food_list.find((product) => product.id === itemId);
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = food_list.find((product) => product._id === item);
         if (itemInfo) {
-          totalAmount += itemInfo.price * cartItems[itemId];
+          totalAmount += itemInfo.price * cartItems[item];
         }
       }
     }
